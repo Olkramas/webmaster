@@ -5,6 +5,7 @@
   
   
 <mapper namespace="com.yedam.dao.MemberMapper">
+	<!-- resultType에 지정된 패키지의 안에 클래스 타입으로 결과를 가져옴 -->
 	<select id="members" resultType="com.yedam.vo.Member">
 		select * from tbl_member
 	</select>

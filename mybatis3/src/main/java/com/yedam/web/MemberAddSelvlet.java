@@ -26,7 +26,6 @@ public class MemberAddSelvlet extends HttpServlet {
 
 
     public MemberAddSelvlet() {
-        // TODO Auto-generated constructor stub
     }
 
 
@@ -41,11 +40,14 @@ public class MemberAddSelvlet extends HttpServlet {
 		out.println("안녕하세용");
 		out.print("<a href='index.html'>첫페이지로 이동</a>");
 		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		String id = request.getParameter("mid");		//mid라는 파라미터 값을 id에 저장했음
+		//한글 출력을위함
+		request.setCharacterEncoding("utf-8");	
+		
+		String id = request.getParameter("mid");		//memberAdd.html에서 form안에 name
 		String name = request.getParameter("mname");
 		String password = request.getParameter("pass");
 		String phone = request.getParameter("phone");
@@ -56,17 +58,22 @@ public class MemberAddSelvlet extends HttpServlet {
 		member.setPassword(password);
 		member.setPhone(phone);
 		
-		//openSession안에 true를 하면 자동 커밋
+		//데이터 베이스 연결을 관리하는 객체를 리턴받았음DataSource.getInstance()
+		//openSession(true)새로운 sql세션을 생성하는 메소드, true는 자동 커밋
 		SqlSession sqlSession = DataSource.getInstance().openSession(true);
+		//sqlSession객체에서 .getMapper메소드를 호출하여 MemberMapper인터페이스의 구현체(xml파일)dmf 가져옴
+		//이를 dao라는 객체에 담았기 때문에 dao.~~xml파일에서 정의했던 것들을 사용할 수 있음.
 		MemberMapper dao = sqlSession.getMapper(MemberMapper.class);
-		try {
-			if(dao.insertMember(member)==1) {
-				response.getWriter().print("OK");
+		
+		if(dao.insertMember(member) == 1) {
+			try {
+				response.getWriter().print("OK");				
+			} catch (Exception e) {
+				response.getWriter().print("NG");
 			}
-		} catch (Exception e) {
-			response.getWriter().print("NG");
 		}
 		
+
 	}
 
 }
