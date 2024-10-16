@@ -1,0 +1,36 @@
+com.yedam.common 	- 공통사용.
+	     .vo 		- vo클래스 (valueObject)
+ 	     .mapper	- 매퍼관련
+	     .suervice 	- 업무로직
+	     .web		- 서블릿
+
+데이터베이스 조회 후 값이 있으면 - 수정
+ 		     	   없으면 - 입력
+
+만약 아래같이 순서만 바뀐다면 
+데이터베이스 조회 후 값이 있으면 - 입력
+				   없으면 - 수정
+				   
+하는 일은 같은데 로직의 순서만 다르니까
+service 패키지에서는 모든 기능을 정의하고 그 순서를 만들어줌
+
+db정보를 db.properties에 넣어서 변수처럼 사용가능함.
+그리고 db.properties는 깃에 올리지 않으면 안전하게 사용가능
+
+교제 536-539P꼭 읽어보기!
+
+*.do로 돼있음
+그래서 adc.do / list.do등이 실행됨
+
+memberList.do -> memberList.jsp로 정보를 넘겨줘야함
+
+url_ memberList.do가 열리면
+1) FrontController
+2) url_control
+3) MemberListControl (mapper)
+4) memberList.jsp
+
+
+
+jsp 요청하고 응답하고 이 두 과정이 있음
+요청- url치기 / 응답은 나오는거

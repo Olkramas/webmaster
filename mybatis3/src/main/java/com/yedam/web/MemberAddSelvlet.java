@@ -19,7 +19,7 @@ import com.yedam.vo.Member;
 //http 프로토콜을 데이터 전송, 수신
 //httpservlet 상속기능 구현
 
-
+//@WebServlet("/MemberAddSelvlet")요청이 들어오면 해당 서블릿 클래스가 실행이 됨.
 @WebServlet("/MemberAddSelvlet")
 public class MemberAddSelvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -61,7 +61,7 @@ public class MemberAddSelvlet extends HttpServlet {
 		//데이터 베이스 연결을 관리하는 객체를 리턴받았음DataSource.getInstance()
 		//openSession(true)새로운 sql세션을 생성하는 메소드, true는 자동 커밋
 		SqlSession sqlSession = DataSource.getInstance().openSession(true);
-		//sqlSession객체에서 .getMapper메소드를 호출하여 MemberMapper인터페이스의 구현체(xml파일)dmf 가져옴
+		//sqlSession객체에서 .getMapper메소드를 호출하여 MemberMapper인터페이스의 구현체(xml파일)을 가져옴
 		//이를 dao라는 객체에 담았기 때문에 dao.~~xml파일에서 정의했던 것들을 사용할 수 있음.
 		MemberMapper dao = sqlSession.getMapper(MemberMapper.class);
 		
