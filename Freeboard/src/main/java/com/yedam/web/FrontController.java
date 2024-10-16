@@ -16,9 +16,10 @@ import com.yedam.common.Control;
 //끝이 .do로 끝나면 이 클래스를 실행하겠다는 의미
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
+	//url경로(String)와 해당경로를 처리할 Control객체를 매핑하는 Map
 	Map<String, Control> map; 
-	//String은 url데이터를 담을거
 	
+	//생성자 인스턴스가 생성될 때 호출됨
 	public FrontController() {
 //		System.out.println("객체 생성");
 		map = new HashMap<>();
@@ -26,13 +27,17 @@ public class FrontController extends HttpServlet {
 		
 	}
 	
+	//init은 서버가 처음 실행할 때 한번 실행됨.
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("init호출");
+		//url경로가 키값으로 해당 url경로를 처리할 컨트롤러 객체를 map에 미리 등록해놓음
+		
 		//memberList.do라는 url이 들어오면 MemberListControl작동
 		map.put("/memberList.do", new MemberListControl());
 		//회원등록 -- 1)등록화면 2)등록처리 두화면이 필요함
 		map.put("/memberAddForm.do", new MemberAddFormControl());
+		//등록 처리
 		map.put("/memberAdd.do", new MemberAddControl());
 	}
 	
@@ -44,8 +49,8 @@ public class FrontController extends HttpServlet {
 		String context = req.getContextPath();	//getContextPath프로젝트 이름을 리턴함 ---> /Freeboard
 		String page = uri.substring(context.length());	//	프로젝트 이름 빼고 그 다음으로 모두 가져옴 ---> /000.do
 		
-		Control control = map.get(page);	//키: page를 넣으면 리턴되는 값을 control에 저장함
-		control.exec(req, resp);
+		Control control = map.get(page);	//키: page(url)을 넣으면 그에 해당하는 Control객체를 맵에서 가져오게됨.
+		control.exec(req, resp);		//Contrl객체의(위에서 설정한 생성자들의 객체) exec()메소드를 호출하여 요청을 처리함
 		
 	}
 }

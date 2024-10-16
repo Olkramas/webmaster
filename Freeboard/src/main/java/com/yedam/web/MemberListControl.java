@@ -17,6 +17,7 @@ public class MemberListControl implements Control{
 		System.out.println("MemberListControl"); 
 		//MemberService인터페이스의 구현클래스로 객체를 만듦
 		MemberService svc = new MemberServiceImpl();
+		
 		//만들어진 객체가 mapper의 구현체의 members를 리턴받음(리스트 타입)
 		List<MemberVO> list = svc.memberList();
 		
@@ -25,7 +26,8 @@ public class MemberListControl implements Control{
 		
 		// memberList.do로 요청된 페이지에서 memberList.jsp로 요청 재지정
 		try {
-			//요청정보가 가지고있는 메소드중에 getRequestDispatcher(요청하는 페이지를 재지정하는 메소드)
+			//getRequestDispatcher지정된 경로에 대한 객체를 생성함.
+			//forward는 그 객체를 통해 jsp파일에 유저의 요청과 응답을 전달할 수 있는 메소드
 			req.getRequestDispatcher("WEB-INF/jsp/memberList.jsp").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();

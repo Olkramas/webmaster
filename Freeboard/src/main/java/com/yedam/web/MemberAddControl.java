@@ -34,7 +34,7 @@ public class MemberAddControl implements Control {
 		try {
 			//멤버 추가 성공하면 목록페이지로 이동.
 			svc.addMember(mvo);
-			
+			//멤버가 성공적으로 추가되면 
 			resp.sendRedirect("memberList.do");
 		} catch (Exception e) {
 			//그게 아닐경우 사용자 등록화면으로 이동

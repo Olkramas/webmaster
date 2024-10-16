@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>memberAddForm</title>
 </head>
 <body>
 <!-- web-inf폴더 밑에 있으면 이제 직접 실행을 못함 컨트롤러에서 설정을 해야함.-->
