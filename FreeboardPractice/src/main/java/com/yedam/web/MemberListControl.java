@@ -13,12 +13,27 @@ import com.yedam.vo.MemberVO;
 public class MemberListControl implements Control
 {
 
+	
+
+//	@Override
+//	public void exec(HttpServletRequest req, HttpServletResponse resp) {
+//		MemberService svc = new MemberServiceImpl();
+//		
+//		List<MemberVO> list = svc.memberList();
+//		
+//		req.setAttribute("memberList", list);
+//		
+//		try {
+//			req.getRequestDispatcher("WEB-INF/jsp/memberList.jsp").forward(req, resp);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) {
+		
 		MemberService svc = new MemberServiceImpl();
-		
 		List<MemberVO> list = svc.memberList();
-		
 		req.setAttribute("memberList", list);
 		
 		try {

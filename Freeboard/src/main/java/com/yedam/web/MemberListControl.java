@@ -15,6 +15,7 @@ public class MemberListControl implements Control{
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) {
 		System.out.println("MemberListControl"); 
+		
 		//MemberService인터페이스의 구현클래스로 객체를 만듦
 		MemberService svc = new MemberServiceImpl();
 		

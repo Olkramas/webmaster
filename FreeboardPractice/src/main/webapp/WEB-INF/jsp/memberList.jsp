@@ -14,21 +14,22 @@
 		List<MemberVO> list = (List<MemberVO>) request.getAttribute("memberList");
 		System.out.println(list);
 	%>
-		<table>
+	<table border='1'>
 		<tbody>
 	<%
-		for(MemberVO mvo : list) {
+			for(MemberVO mvo : list) {
 	%>
-		<tr>
-			<td><%=mvo.getMemberId() %></td>
-			<td><%=mvo.getMemberName() %></td>
-			<td><%=mvo.getPhone() %></td>
-		</tr>
+				<tr>
+					<td><%=mvo.getMemberId() %></td>
+					<td><%=mvo.getMemberName() %></td>
+					<td><%=mvo.getPhone() %></td>
+				</tr>
 	<%
-		}
+			}
 	%>
-		
 		</tbody>
-		</table>
+	</table>
+		
+		
 </body>
 </html>

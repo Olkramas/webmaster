@@ -33,12 +33,30 @@ public class FrontController extends HttpServlet {
 		System.out.println("init호출");
 		//url경로가 키값으로 해당 url경로를 처리할 컨트롤러 객체를 map에 미리 등록해놓음
 		
+		//회원 관련 처리
 		//memberList.do라는 url이 들어오면 MemberListControl작동
 		map.put("/memberList.do", new MemberListControl());
 		//회원등록 -- 1)등록화면 2)등록처리 두화면이 필요함
 		map.put("/memberAddForm.do", new MemberAddFormControl());
 		//등록 처리
 		map.put("/memberAdd.do", new MemberAddControl());
+		
+		//게시글 관련 처리
+		//글목록 보여주기
+		map.put("/boardList.do", new boardListControl());
+		//게시글 상세화면 보기
+		map.put("/board.do", new BoardControl());
+		//게시글 리스트(등록화면에서 등록처리를 함) 컨트롤이 두개가 있어야 함.
+		//등록 화면
+		map.put("/addBoardForm.do", new AddBoardForm());
+		//등록 처리
+		map.put("/addBoard.do", new AddBoardControl());
+		//글 수정
+		//수정하는 화면이 있어야됨. 그리고 그 화면에서 변경처리를 해야됨.
+		map.put("/modifyBoard.do", new ModifyBoardControl());
+		//글삭제
+		map.put("/deleteBoard.do", new DeleteBoard());
+		
 	}
 	
 	@Override
