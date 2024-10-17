@@ -6,6 +6,7 @@ import com.yedam.vo.BoardVO;
 
 public interface BoardService {
 	//목록 가져와야함.
+	List<BoardVO> boardList();
 	List<BoardVO> boardList(int page);
 	
 	//등록	

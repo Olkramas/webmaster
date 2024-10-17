@@ -17,6 +17,8 @@ public class boardListControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//유저가/boardList.do를 검색했을때 여기를 거치게됨.
+		
 		String page = req.getParameter("page");
 		//page가 null일때 1을 넣고 아니면 page그대로를 page에 넣겠다라는 의미
 		page = page == null ? "1" : page;

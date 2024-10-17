@@ -41,7 +41,7 @@ public class FrontController extends HttpServlet {
 		//등록 처리
 		map.put("/memberAdd.do", new MemberAddControl());
 		
-		//게시글 관련 처리
+		//게시글 관련 처리 
 		//글목록 보여주기
 		map.put("/boardList.do", new boardListControl());
 		//게시글 상세화면 보기
@@ -55,7 +55,7 @@ public class FrontController extends HttpServlet {
 		//수정하는 화면이 있어야됨. 그리고 그 화면에서 변경처리를 해야됨.
 		map.put("/modifyBoard.do", new ModifyBoardControl());
 		//글삭제
-		map.put("/deleteBoard.do", new DeleteBoard());
+		map.put("/removeBoard.do", new RemoveBoard());
 		
 	}
 	

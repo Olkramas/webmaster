@@ -33,7 +33,7 @@
 	<tr>
 		<td colspan='4' align="center">
 			<input type="submit" value="수정" class="btn btn-primary">
-			<input type="reset" value="취소" class="btn btn-danger">
+			<input type="submit" value="삭제" class="btn btn-danger">
 		</td>
 	</tr>
 </table>
@@ -48,9 +48,9 @@
 		location.href = 'modifyBoard.do?bno=<%=bvo.getBoardNo() %>';
 		//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
 	});
-	document.querySelector('input[value="취소"]')	.addEventListener('click', function(e) {
+	document.querySelector('input[value="삭제"]')	.addEventListener('click', function(e) {
 		//input[value="수정"]가 클릭됐을 때
-		location.href = 'boardList.do';
+		location.href = 'removeBoard.do?bno=<%=bvo.getBoardNo() %>';
 		//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
 	});
 </script>

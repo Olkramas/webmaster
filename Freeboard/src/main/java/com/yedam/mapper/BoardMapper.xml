@@ -17,7 +17,7 @@
 		       ,write_date
 		       ,update_date
 		from   tbl_board
-		order by board_no
+		order  by board_no
 	</select>
 	
 	<select id="listWithPage" parameterType="int">
@@ -31,12 +31,13 @@
 		from   ( select rownum rn, a.*
 		         from   ( select *
 		                  from   tbl_board
-		                  order by board_no) a ) b
+		                  order by board_no desc) a ) b
 		where b.rn > (#{page} - 1) * 5
 		<!-- 이 안에 있어야 크거나 "같다"등호를 사용가능함. -->
 		<![CDATA[
 		and   b.rn <= (#{page} * 5)
-		]]>
+		]]>	
+		
 		<!--데이터를 보드넘버로 순서대로 정렬 -> 정렬된 보드넘버 순으로 rownum을 붙였음 -> 그걸 전부 출력해서 조건을 걸었음.-->
 	</select>
 	

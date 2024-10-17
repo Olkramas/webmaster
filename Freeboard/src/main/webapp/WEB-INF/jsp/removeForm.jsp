@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../../includes/header.jsp"></jsp:include>
-<h3>수정화면 (removeForm.jsp)</h3>
+<h3>삭제화면 (removeForm.jsp)</h3>
 <%
 	String msg = (String) request.getAttribute("msg");
 	BoardVO board = (BoardVO) request.getAttribute("boardvo");
@@ -19,7 +19,7 @@
 %>
 
 <!-- addBoard.do에 파라미터들을 전달해서 처리할거임 -->
-<form action="modifyBoard.do" method="post">
+<form action="removeBoard.do" method="post">
 	<input type="hidden" name="bno" value="<%=board.getBoardNo() %>">
 	<table class="table">
 		<tr>
@@ -39,7 +39,7 @@
 		<tr>
 			<td colspan="2" align="center">
 				<input type="submit" value="삭제"  class="btn btn-primary">
-				<input type="submit" value="취소" class="btn btn-danger">
+				<input type="reset" value="취소" class="btn btn-danger">
 			</td>
 		</tr>
 	</table>
@@ -48,14 +48,9 @@
 <jsp:include page="../../includes/footer.jsp"></jsp:include>
 
 <script>
-	document.querySelector('input[value="삭제"]')	.addEventListener('click', function(e) {
-		//input[value="수정"]가 클릭됐을 때
-		location.href = 'boardList.do';
-		//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
-	});
-	document.querySelector('input[value="취소"]')	.addEventListener('click', function(e) {
-		//input[value="수정"]가 클릭됐을 때
-		location.href = 'boardList.do';
-		//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
-	});
+document.querySelector('input[value="취소"]')	.addEventListener('click', function(e) {
+	//input[value="수정"]가 클릭됐을 때
+	location.href = 'boardList.do';
+	//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
+});
 </script>

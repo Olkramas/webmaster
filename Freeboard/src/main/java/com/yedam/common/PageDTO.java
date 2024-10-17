@@ -1,5 +1,11 @@
 package com.yedam.common;
 
+import java.util.List;
+
+import com.yedam.service.BoardService;
+import com.yedam.service.BoardServiceImpl;
+import com.yedam.vo.BoardVO;
+
 import lombok.Data;
 
 @Data
@@ -13,13 +19,18 @@ public class PageDTO {
 	private int page;
 	
 	public PageDTO(int page) {
+		BoardService svc = new BoardServiceImpl();
+		List<BoardVO> list = svc.boardList();
+		
 		//토탈카운트를 기준으로 전체페이지를 만드려고 함
-		int totalCnt = 40;
+		int totalCnt = list.size();
 		this.endPage = (int) Math.ceil(page / 10.0) * 10;
 		this.startPage = this.endPage - 9;
 		
 		int realEnd = (int) Math.ceil(totalCnt / 5.0);
+		
 		//실제 마지막 페이지보다 endPage가 크면 realEnd로 endPage를 설정하게 됨.
+		//endPage는 로직상 무조건 최소 10을 가지게 되있음. 그러나 realEnd가 더 적을경우 realEnd에 맞게 숫자가 나와야 하기때문에 이렇게 조건을 만들었음
 		this.endPage = this.endPage > realEnd ? realEnd : this.endPage;
 		
 		this.prev = this.startPage > 1;

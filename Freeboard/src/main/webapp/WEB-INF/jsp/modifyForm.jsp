@@ -45,4 +45,14 @@
 	</table>
 </form>
 
+
+
 <jsp:include page="../../includes/footer.jsp"></jsp:include>
+
+<script>
+document.querySelector('input[value="취소"]')	.addEventListener('click', function(e) {
+	//input[value="수정"]가 클릭됐을 때
+	location.href = 'board.do?bno=<%=board.getBoardNo() %>';
+	//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
+});
+</script>

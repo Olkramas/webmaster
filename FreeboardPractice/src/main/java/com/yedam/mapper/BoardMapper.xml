@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="com.yedam.mapper.BoardMapper">
+	<!-- resultType에 지정된 패키지의 안에 클래스 타입으로 결과를 가져옴 -->
+	
+	<!-- 세미콜론이 들어가면 구문 오류!! 들어가면 안됨 -->
+	<select id="boardList" resultType="board">
+		select board_no
+		       ,title
+		       ,content
+		       ,writer
+		       ,view_cnt
+		       ,write_date
+		       ,update_date
+		from   tbl_board
+		order  by board_no
+	</select>
+	
+	<select id="listWithPage" parameterType="int">
+		<!--페이징. 한페이지당 5건씩 출력 -->
+		<!--보드넘버를 기준으로 5개씩 -->
+		<!--page라는 파라미터를 받아서 커리문을 실행하게 됨 -->
+		
+		<!--rownum을 붙인 정렬된 데이터에서 조건을 붙이기 위해서 또한번 b로 만들었음-->
+		select b.*
+		<!--rownum을 붙이기 위해 정렬된 데이터를 a로 만들었음. -->
+		from   ( select rownum rn, a.*
+		         from   ( select *
+		                  from   tbl_board
+		                  order by board_no desc) a ) b
+		where b.rn > (#{page} - 1) * 5
+		<!-- 이 안에 있어야 크거나 "같다"등호를 사용가능함. -->
+		<![CDATA[
+		and   b.rn <= (#{page} * 5)
+		]]>	
+		
+		<!--데이터를 보드넘버로 순서대로 정렬 -> 정렬된 보드넘버 순으로 rownum을 붙였음 -> 그걸 전부 출력해서 조건을 걸었음.-->
+	</select>
+	
+	<insert id="insertBoard" parameterType="board">
+		insert into tbl_board (board_no, title, content, writer)
+		values (board_seq.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<update id="updateBoard" parameterType="board">
+		update tbl_board
+		<!--  업데이트 될대마다 현재날짜로 바뀜 -->
+		set    update_date = sysdate
+		
+		<!-- 사용자가 제목과 내용을 안바꿀수도 있음 그 조치를해야함 -->
+		<!-- 널이 아닌 값들의 값들만 파라미터를 받아와서 수정함 -->
+		<if test="title != null">
+			,title = #{title}
+		</if>
+		<if test="content != null">
+			,content = #{content}
+		</if>
+		where   board_no = #{boardNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from tbl_board
+		where  board_no = #{boardNo}
+	</delete>
+	
+	<!-- 반환되는 데이터 값이 없으면 null로 나옴 -->
+	<select id="selectBoard" parameterType="int">
+		select board_no
+		       ,title
+		       ,content
+		       ,writer
+		       ,view_cnt
+		       ,write_date
+		       ,update_date
+		from   tbl_board
+		where  board_no = #{boardNo}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateCount" parameterType="int">
+		update tbl_board
+		set    view_cnt = view_cnt + 1
+		where  board_no = #{boardNo}
+	</update>
+	
+	
+</mapper>
