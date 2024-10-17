@@ -22,6 +22,8 @@ public class PageDTO {
 		//실제 마지막 페이지보다 endPage가 크면 realEnd로 endPage를 설정하게 됨.
 		this.endPage = this.endPage > realEnd ? realEnd : this.endPage;
 		
+		this.prev = this.startPage > 1;
+		this.next = this.endPage < realEnd;
 	}
 	
 }
