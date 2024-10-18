@@ -1,7 +1,9 @@
 <%@page import="com.yedam.service.MemberService"%>
 <%@page import="com.yedam.service.MemberServiceImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,23 +11,36 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- url로 접근할수있는건 index만 가능함 WEB-INF하위 폴더JSP는 접근이 불가능함. -->
-<!--  mvc디자인: view(jsp페이지), model(db처리), 컨트롤 -->
-	<!-- 자바 프로그래밍 언어를 사용가능함 -->
-	<% 	String myName = "이창호";
-		//컨트롤 스페이스로 임포트 가능
-		MemberService svc = new MemberServiceImpl();	
-		if(svc.retireMember("guest")) {
-	%>
-		<p>삭제되었습니다</p>
-	<%
-		} else {
-	%>
-		<p>회원정보가 없습니다.</p>
-	<%
-		}
-	%>
+	<!--  mvc디자인: view(jsp페이지), model(db처리), 컨트롤 -->
+	<!--  Expression Language : EL -->
+
+
+	<c:set var="name" value="Hong"></c:set>
+	<c:out value="${name }"></c:out>
+
+	<c:set var="age" value="20"></c:set>
 	
-	<h3>내 이름은 <%=myName %>입니다.</h3>
+	<c:if test="${age >= 20 }">
+		<p>성인입니다.</p>
+	</c:if>
+
+	<c:choose>
+		<c:when test="${age>=60 }">
+			<p>노인</p>
+		</c:when>
+		<c:when test="${age>=20 }">
+			<p>성인</p>
+		</c:when>
+		<c:otherwise>
+			<p>미성년</p>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:forEach var="i" begin="1" end="5" step="1">
+		<p>i의 값은 ${i}입니다</p>
+	</c:forEach>
+	
+	<c:set var="page" value="boardList.do"></c:set>
+	<jsp:forward page="${page }"></jsp:forward>
 </body>
 </html>

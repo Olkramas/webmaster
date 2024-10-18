@@ -19,7 +19,9 @@ public class ModifyBoardControl implements Control {
 		// post방식이면 수정처리
 		req.setCharacterEncoding("utf-8");
 		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
 		BoardService svc = new BoardServiceImpl();
+		
 		
 		if (req.getMethod().equals("GET")) {
 			//get방식 요청이 들어오면 아래
@@ -28,6 +30,7 @@ public class ModifyBoardControl implements Control {
 			BoardVO board = svc.searchBoard(Integer.parseInt(bno));
 			
 			req.setAttribute("boardvo", board);
+			req.setAttribute("page", page);
 			req.getRequestDispatcher("WEB-INF/jsp/modifyForm.jsp").forward(req, resp);
 		} else if (req.getMethod().equals("POST")) {
 			//ModifyForm에서 서브밋을 누르면 여기로 파라미터 오게됨.
@@ -45,7 +48,7 @@ public class ModifyBoardControl implements Control {
 			//여기서는 그렇게 될게 없음 그래서 if문 사용함
 			if(svc.modifyBoard(board)) {
 				//수정이 되면 boardList.do로 이동됨(목록을 보여줌)
-				resp.sendRedirect("boardList.do");
+				resp.sendRedirect("boardList.do?page=" + page);
 			} else {
 				req.setAttribute("boardvo", board);
 				req.setAttribute("msg", "수정할 게시글이 없습니다");

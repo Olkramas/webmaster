@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+///////////////////////////////////////파라미터 계속 옮기는거 숙제!!
+
 
 //끝이 .do로 끝나면 이 클래스를 실행하겠다는 의미
 @WebServlet("*.do")
@@ -43,7 +45,7 @@ public class FrontController extends HttpServlet {
 		
 		//게시글 관련 처리 
 		//글목록 보여주기
-		map.put("/boardList.do", new boardListControl());
+		map.put("/boardList.do", new BoardListControl());
 		//게시글 상세화면 보기
 		map.put("/board.do", new BoardControl());
 		//게시글 리스트(등록화면에서 등록처리를 함) 컨트롤이 두개가 있어야 함.
@@ -56,6 +58,11 @@ public class FrontController extends HttpServlet {
 		map.put("/modifyBoard.do", new ModifyBoardControl());
 		//글삭제
 		map.put("/removeBoard.do", new RemoveBoard());
+		
+		//로그인 관련처리
+		map.put("/loginForm.do", new LoginForm());
+		//로그아웃
+		map.put("/logOutForm.do", new LogOutControl());
 		
 	}
 	

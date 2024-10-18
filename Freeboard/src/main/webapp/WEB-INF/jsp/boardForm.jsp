@@ -3,6 +3,7 @@
 <jsp:include page="../../includes/header.jsp"></jsp:include>
 <h3>등록화면 (boardForm.jsp)</h3>
 <%
+	String logId = (String) session.getAttribute("logId");
 	String msg = (String) request.getAttribute("msg");
 %>
 <%
@@ -17,6 +18,7 @@
 
 <!-- addBoard.do에 파라미터들을 전달해서 처리할거임 -->
 <form action="addBoard.do" method="get">
+	<input type="hidden" name="writer" class="form-control" value="<%= logId%>">
 	<table class="table">
 		<tr>
 			<th>제목</th><td><input type="text" name="title" class="form-control"></td>
@@ -26,7 +28,7 @@
 			<th>내용</th><td><textarea class="form-control" rows="3" cols="30" name="content"></textarea></td>
 		</tr>
 		<tr>
-			<th>작성자</th><td><input type="text" name="writer" class="form-control"></td>
+			<th>작성자</th><td><%= logId%></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">

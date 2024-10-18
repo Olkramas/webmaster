@@ -14,6 +14,10 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
+    <%
+    	//session도 내장객체임 request처럼(removeform.jsp참고)  그냥 이렇게 사용할 수 있음
+    	String logId = (String) session.getAttribute("logId");
+    %>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -22,8 +26,12 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberList.do">회원목록</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberAddForm.do">회원등록</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시물 목록</a>
+                    <% if(logId == null) { %>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="loginForm.do">로그인</a>
+                    <%} else { %>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="addBoardForm.do">게시글등록</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="logOutForm.do">로그아웃 (<%=logId %>)</a>
+                    <% }%>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>
             </div>

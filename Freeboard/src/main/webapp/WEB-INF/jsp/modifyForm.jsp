@@ -6,6 +6,11 @@
 <%
 	String msg = (String) request.getAttribute("msg");
 	BoardVO board = (BoardVO) request.getAttribute("boardvo");
+	String pg = (String) request.getAttribute("page");
+	String sc = (String) request.getAttribute("searchCondition");
+	String kw = (String) request.getAttribute("keyword");
+	//세션 가져오기
+	String logId = (String) session.getAttribute("logId");
 	
 %>
 <%
@@ -21,6 +26,7 @@
 <!-- addBoard.do에 파라미터들을 전달해서 처리할거임 -->
 <form action="modifyBoard.do" method="post">
 	<input type="hidden" name="bno" value="<%=board.getBoardNo() %>">
+	<input type="hidden" name="page" value="<%=pg %>">
 	<table class="table">
 		<tr>
 			<th>글번호</th><td><%=board.getBoardNo() %></td>
@@ -37,9 +43,9 @@
 			<th>작성자</th><td><%=board.getWriter() %></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="저장"  class="btn btn-primary">
-				<input type="reset" value="취소" class="btn btn-danger">
+			<td colspan="2" align="center">		<!-- 로그인 아이디가 널이아니고 작성자와 같으면 활성화, 아니면 비활성화 /// logId != null하는 이유는 만약 널일경우 널포인트 익셉션이 발생함. -->
+				<input type="submit" value="저장" <%=logId != null && logId.equals(board.getWriter()) ? "" : "disabled" %> class="btn btn-primary">
+				<input type="submit" value="취소" class="btn btn-danger">
 			</td>
 		</tr>
 	</table>
@@ -50,9 +56,6 @@
 <jsp:include page="../../includes/footer.jsp"></jsp:include>
 
 <script>
-document.querySelector('input[value="취소"]')	.addEventListener('click', function(e) {
-	//input[value="수정"]가 클릭됐을 때
-	location.href = 'board.do?bno=<%=board.getBoardNo() %>';
-	//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
-});
+	
+
 </script>

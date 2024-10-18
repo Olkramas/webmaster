@@ -2,11 +2,16 @@ package com.yedam.service;
 
 import java.util.List;
 
-import com.yedam.vo.MemberVO;
+import com.yedam.vo.BoardVO;
 
 public interface MemberService {
-	boolean addMember(MemberVO member);
-	boolean retireMember(String MemberId);
-	//회원목록 출력을 위한 메소드
-	List<MemberVO> memberList(); 
+	List<BoardVO> boardList();
+	
+	int insertBoard(BoardVO board);
+	
+	int updateBoard(BoardVO board);
+	
+	int deleteBoard(int boardNo);
+	
+	BoardVO selectBoard(int boardNo);
 }

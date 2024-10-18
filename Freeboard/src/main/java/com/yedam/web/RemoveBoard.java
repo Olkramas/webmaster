@@ -23,7 +23,6 @@ public class RemoveBoard implements Control {
 //			svc.removeBoard(Integer.parseInt(bno));
 //			resp.sendRedirect("boardList.do");
 //		}
-		
 		if(req.getMethod().equals("GET")) {
 			BoardVO board = svc.searchBoard(Integer.parseInt(bno));
 			

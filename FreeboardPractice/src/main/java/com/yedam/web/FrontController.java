@@ -15,6 +15,8 @@ import com.yedam.comm.Control;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet{
+	//mapper - service 순서로 먼저 만들어져야함.
+	
 	Map<String, Control> map;
 	
 	public FrontController() {
@@ -25,9 +27,15 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("init 호출");
+		//멤버 리스트 출력
 		map.put("/memberList.do", new MemberListControl());
+		//멤버 추가 jsp연결
 		map.put("/memberAddForm.do", new MemberAddFormControl());
+		//멤버 추가 실제 처리
 		map.put("/memberAdd.do", new MemberAddControl());
+		
+		//게시글 리스트 만들기
+		map.put("/boardList.do", new boardListContrl());
 	}
 	
 	@Override

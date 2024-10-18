@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DataSource;
+import com.yedam.common.SearchDTO;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
@@ -52,11 +53,20 @@ public class Apptest {
 		
 		//page파라미터를 1로 가정해서 시험
 		//리스트를 5개식 가져오기
-		List<BoardVO> list = mapper.listWithPage(6);
+//		List<BoardVO> list = mapper.listWithPage(6);
+//		for(BoardVO bvo : list) {
+//			System.out.println(bvo.toString());
+//		}
+		
+		SearchDTO search = new SearchDTO();
+		search.setKeyword("user01");
+		search.setSearchCondition("W");
+		search.setPage(1);
+		
+		List<BoardVO> list = mapper.listWithPage(search);
 		for(BoardVO bvo : list) {
 			System.out.println(bvo.toString());
 		}
-		
 	}
 }
 

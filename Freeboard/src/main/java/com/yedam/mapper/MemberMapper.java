@@ -1,6 +1,9 @@
 package com.yedam.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.yedam.vo.MemberVO;
 
 
@@ -14,5 +17,8 @@ public interface MemberMapper {
 	public int updateMember(MemberVO member);
 	public int deleteMember(String memberId);
 	public MemberVO selectMember(String memberId);	//단건 조회
+	
+	//아이디와 & 비밀번호 조회하는 기능(로그인)
+	public MemberVO loginMember(@Param("id") String id, @Param("pw") String pw);
 	
 }
