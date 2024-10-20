@@ -38,6 +38,8 @@ public class FrontController extends HttpServlet{
 		map.put("/boardList.do", new BoardListControl());
 		//게시글 상세보기
 		map.put("/board.do", new BoardControl());
+		//게시글 수정하기
+		map.put("/modifyBoard.do", new modifyBoardControl());
 		
 	
 		

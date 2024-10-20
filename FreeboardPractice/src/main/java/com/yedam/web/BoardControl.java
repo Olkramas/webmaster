@@ -21,17 +21,19 @@ public class BoardControl implements Control {
 		String kw = req.getParameter("keyword");
 		String bno = req.getParameter("bno");
 		
-		//가져온 파라미터 jsp페이지로 보내서 사용하기위해 속성설정
-		req.setAttribute("searchCondition", sc);
-		req.setAttribute("keyword", kw);
 		
 		BoardService svc = new BoardServiceImpl();
 		//게시물 상세보기 객체에 정보 저장 + 조회수 1업 
 		BoardVO board = svc.searchBoard(Integer.parseInt(bno));
 		
+		//가져온 파라미터 jsp페이지로 보내서 사용하기위해 속성설정
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);
+		req.setAttribute("boardvo", board);
+		req.setAttribute("page", page);
 		
-		
-		
+		//jsp페이지로 연결
+		req.getRequestDispatcher("WEB-INF/jsp/board.jsp").forward(req, resp);
 	}
 
 }

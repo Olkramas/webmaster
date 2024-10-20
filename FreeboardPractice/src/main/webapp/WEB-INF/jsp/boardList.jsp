@@ -58,7 +58,7 @@ kw = kw == null ? "" : kw;
 			<tr>
 				<td><%=board.getBoardNo() %></td>
 				<td>
-					<a href="board.do?bno=<%=board.getBoardNo() %>&searchCondition=<%=sc%>&keyword<%=kw%>&page=<%=paging%>&title=<%=board.getTitle()%>">
+					<a href="board.do?bno=<%=board.getBoardNo() %>&searchCondition=<%=sc%>&keyword<%=kw%>&page=<%=paging.getPage()%>&title=<%=board.getTitle()%>&wirter=<%=board.getWriter()%>">
 						<%=board.getTitle() %>
 					</a>
 				</td>
