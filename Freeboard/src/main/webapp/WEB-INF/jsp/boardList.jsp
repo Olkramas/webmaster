@@ -10,30 +10,28 @@
 <jsp:include page="../../includes/header.jsp"></jsp:include>
 
 <h3>글 목록(boardList.jsp)</h3>
-<%
-List<BoardVO> list = (List<BoardVO>) request.getAttribute("boardList");
-SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-PageDTO paging = (PageDTO) request.getAttribute("page");
-String sc = (String) request.getAttribute("searchCondition");
-String kw = (String) request.getAttribute("keyword");
-kw = kw == null ? "" : kw; //null값을 처리하기
-%>
+
+<!-- 검색 하고 페이지 넘겨도 제목이 그대로 있게 해줌 -->
+<p style="display: none;">${keyword = keyword == null ? "" : keyword }</p>
+
+
 <!-- 검색조건 -->
 <form action="boardList.do" class="row g-3">
 	<div class="col-md-3">
 		<select name="searchCondition" class="form-select">
 			<option selected>선택하세요.</option>
-			<option value="T"
-				<%=(sc != null && sc.equals("T") ? "selected" : "")%>>제목</option>
+			<!-- 검색후 페이지 넘겨도 00으로 검색한 옵션 그대로 있게 해줌 -->
+			<option value="T" 
+				${searchCondition != null && searchCondition.equals("T") ? "selected" : ""}>제목</option>
 			<option value="W"
-				<%=(sc != null && sc.equals("W") ? "selected" : "")%>>작성자</option>
+				${searchCondition != null && searchCondition.equals("W") ? "selected" : ""}>작성자</option>
 			<option value="TW"
-				<%=(sc != null && sc.equals("TW") ? "selected" : "")%>>제목&작성자</option>
+				${searchCondition != null && searchCondition.equals("TW") ? "selected" : ""}>제목&작성자</option>
 		</select>
 	</div>
 	<div class="col-md-4">
 		<input type="text" class="form-control" name="keyword"
-			value='<%=kw == null || kw.equals("") ? "" : kw%>'>
+			value='${keyword == null || keyword.equals("") ? "" : keyword}'>
 	</div>
 	<div class="col-md-5">
 		<button type="submit" class="btn btn-primary">조회</button>
@@ -65,62 +63,59 @@ kw = kw == null ? "" : kw; //null값을 처리하기
 	</tbody>
 </table>
 
-<% if(list.size() == 0) { %>
-	<tr>  
-		<td align="center" colspan="5"> - no data -</td>
-	</tr>
-	
-<%} %>
-<%=paging%>
+<c:if test="${boardList.size() == 0 }">
+	<p style="text-align: center">- no data -</p>
+	<hr style="border: 1px solid #ddd;">
+</c:if>
+${page}
 <!-- paging -->
 <nav aria-label="Page navigation example">
 	<ul class="pagination justify-content-center">
 		<!-- 이전페이지 -->
-		<%
-		if (paging.isPrev()) {
-		%>
-		<li class="page-item"><a class="page-link"
-			href="boardList.do?page=<%=paging.getStartPage() - 1%>">Previous</a></li>
-		<%
-		} else {
-		%>
-		<li class="page-item disabled"><a class="page-link">Previous</a>
-		</li>
-		<%
-		}
-		%>
+		<c:choose>
+			<c:when test="${page.prev }"> 
+					<li class="page-item">
+						<a class="page-link" href="boardList.do?page=${page.startPage - 1}">Previous</a>
+					</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link">Previous</a>
+				</li>
+			</c:otherwise>
+		</c:choose>
 
 		<!-- 현재 페이지 색들어오게 해주기. -->
-		<%
-		for (int p = paging.getStartPage(); p <= paging.getEndPage(); p++) {
-			if (paging.getPage() == p) {
-		%>
-		<li class="page-item active"><span class="page-link"
-			aria-current="page"><%=p%></span></li>
-		<%
-		} else {
-		%>
-		<li class="page-item"><a class="page-link"
-			href="boardList.do?searchCondition=<%=sc%>&page=<%=p%>&keyword=<%=kw%>"><%=p%></a></li>
-		<%
-		}
-		}
-		%>
+		<c:forEach var="p" begin="${page.startPage }" end="${page.endPage }" step="1">
+			<c:choose>
+				<c:when test="${page.page == p }">
+					<li class="page-item active">
+						<span class="page-link" aria-current="page">${p}</span>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item">
+						<a class="page-link" href="boardList.do?searchCondition=${searchCondition }&page=${p}&keyword=${keyword}">${p }</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
 
 
 		<!-- 다음페이지 -->
-		<%
-		if (paging.isNext()) {
-		%>
-		<li class="page-item"><a class="page-link"
-			href="boardList.do?page=<%=paging.getEndPage() + 1%>">Next</a></li>
-		<%
-		} else {
-		%>
-		<li class="page-item disabled"><a class="page-link">Next</a></li>
-		<%
-		}
-		%>
+		<c:choose>
+			<c:when test="${page.next }">
+				<li class="page-item">
+					<a class="page-link" href="boardList.do?page=${page.endPage + 1}">Next</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link">Next</a>
+					</li>
+			</c:otherwise>
+		</c:choose>
+
 	</ul>
 </nav>
 

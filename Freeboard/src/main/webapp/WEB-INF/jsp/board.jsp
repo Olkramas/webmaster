@@ -11,7 +11,7 @@ BoardVO bvo = (BoardVO) request.getAttribute("boardvo");
 String pg = (String) request.getAttribute("page");
 String sc = (String) request.getAttribute("searchCondition");
 String kw = (String) request.getAttribute("keyword");
-kw = kw == null ? "" : kw;	//null값을 처리하기
+kw = kw == null ? "" : kw; //null값을 처리하기
 SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 String wdate = simpleDate.format(bvo.getWriteDate());
 %>
@@ -56,12 +56,12 @@ String wdate = simpleDate.format(bvo.getWriteDate());
 <script>
 	document.querySelector('input[value="수정"]')	.addEventListener('click', function(e) {
 		//input[value="수정"]가 클릭됐을 때
-		location.href = 'modifyBoard.do?bno=<%=bvo.getBoardNo()%>&page=<%=pg%>&searchCondition=<%=sc %>&keyword=<%= kw%>';
+		console.log("click정상동작");
+		location.href = 'modifyBoard.do?bno=<%=bvo.getBoardNo()%>&title=<%=bvo.getTitle()%>&page=<%=pg%>&searchCondition=<%=sc%>&keyword=<%=kw%>';
 		//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
 	});
 	document.querySelector('input[value="삭제"]')	.addEventListener('click', function(e) {
 		//input[value="삭제"]가 클릭됐을 때
-	location.href = 'removeBoard.do?bno=<%=bvo.getBoardNo()%>&page=<%=pg%>&searchCondition=<%=sc %>&keyword=<%= kw%>';
-			//location.href자바스크립트 에서 페이지 이동할 때 이렇게 사용함. get방식 bno에서 파라미터 값을 받아와서 이동함.
+	location.href = 'removeForm.do?bno=<%=bvo.getBoardNo()%>&title=<%=bvo.getTitle()%>&page=<%=pg%>&searchCondition=<%=sc%>&keyword=<%=kw%>';
 	});
 </script>

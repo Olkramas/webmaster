@@ -13,6 +13,7 @@ public interface MemberMapper {
 	public int insertMember(MemberVO member);
 	public int updateMember(MemberVO member);
 	public int deleteMember(String memberId);
+	
 	public MemberVO selectMember(String memberId);	//단건 조회
 	
 }

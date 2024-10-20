@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
-///////////////////////////////////////파라미터 계속 옮기는거 숙제!!
+///////////////////////////////////////jsp파일안에 자바코드 바꾸기
 
 
 //끝이 .do로 끝나면 이 클래스를 실행하겠다는 의미
@@ -57,8 +57,7 @@ public class FrontController extends HttpServlet {
 		//수정하는 화면이 있어야됨. 그리고 그 화면에서 변경처리를 해야됨.
 		map.put("/modifyBoard.do", new ModifyBoardControl());
 		//글삭제
-		map.put("/removeBoard.do", new RemoveBoard());
-		
+		map.put("/removeForm.do", new RemoveForm());
 		//로그인 관련처리
 		map.put("/loginForm.do", new LoginForm());
 		//로그아웃

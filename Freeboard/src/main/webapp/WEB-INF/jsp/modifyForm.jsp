@@ -27,6 +27,8 @@
 <form action="modifyBoard.do" method="post">
 	<input type="hidden" name="bno" value="<%=board.getBoardNo() %>">
 	<input type="hidden" name="page" value="<%=pg %>">
+	<input type="hidden" name="searchCondition" value="<%=sc %>">
+	<input type="hidden" name="keyword" value="<%=kw %>">
 	<table class="table">
 		<tr>
 			<th>글번호</th><td><%=board.getBoardNo() %></td>
@@ -45,7 +47,7 @@
 		<tr>
 			<td colspan="2" align="center">		<!-- 로그인 아이디가 널이아니고 작성자와 같으면 활성화, 아니면 비활성화 /// logId != null하는 이유는 만약 널일경우 널포인트 익셉션이 발생함. -->
 				<input type="submit" value="저장" <%=logId != null && logId.equals(board.getWriter()) ? "" : "disabled" %> class="btn btn-primary">
-				<input type="submit" value="취소" class="btn btn-danger">
+				<input type="reset" value="취소" class="btn btn-danger">
 			</td>
 		</tr>
 	</table>
@@ -56,6 +58,8 @@
 <jsp:include page="../../includes/footer.jsp"></jsp:include>
 
 <script>
-	
+	document.querySelector('input[value="취소"]').addEventListener('click',function(e) {
+		location.href = 'boardList.do?&page=<%=pg%>&searchCondition=<%=sc%>&keyword=<%=kw%>';
+	});
 
 </script>

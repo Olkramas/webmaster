@@ -1,6 +1,7 @@
 package com.yedam.web;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,8 @@ public class ModifyBoardControl implements Control {
 		req.setCharacterEncoding("utf-8");
 		String bno = req.getParameter("bno");
 		String page = req.getParameter("page");
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
 		BoardService svc = new BoardServiceImpl();
 		
 		
@@ -31,6 +34,8 @@ public class ModifyBoardControl implements Control {
 			
 			req.setAttribute("boardvo", board);
 			req.setAttribute("page", page);
+			req.setAttribute("searchCondition", sc);
+			req.setAttribute("keyword", kw);
 			req.getRequestDispatcher("WEB-INF/jsp/modifyForm.jsp").forward(req, resp);
 		} else if (req.getMethod().equals("POST")) {
 			//ModifyForm에서 서브밋을 누르면 여기로 파라미터 오게됨.
@@ -44,11 +49,14 @@ public class ModifyBoardControl implements Control {
 			board.setTitle(title);
 			board.setContent(content);
 			
+			String encodedSc = URLEncoder.encode(sc, "UTF-8"); // searchCondition 인코딩
+			String encodedKw = URLEncoder.encode(kw, "UTF-8"); // keyword 인코딩
+			
 			//인서트는 not null인 항목에 안넣거나 하면 예외가 발생하지만
 			//여기서는 그렇게 될게 없음 그래서 if문 사용함
 			if(svc.modifyBoard(board)) {
 				//수정이 되면 boardList.do로 이동됨(목록을 보여줌)
-				resp.sendRedirect("boardList.do?page=" + page);
+				resp.sendRedirect("boardList.do?page=" + page + "&searchCondition=" + encodedSc+ "&keyword=" + encodedKw);
 			} else {
 				req.setAttribute("boardvo", board);
 				req.setAttribute("msg", "수정할 게시글이 없습니다");

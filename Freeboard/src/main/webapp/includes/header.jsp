@@ -16,7 +16,7 @@
     <body>
     <%
     	//session도 내장객체임 request처럼(removeform.jsp참고)  그냥 이렇게 사용할 수 있음
-    	String logId = (String) session.getAttribute("logId");
+    	String logId = (String) session.getAttribute("logId");	
     %>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->

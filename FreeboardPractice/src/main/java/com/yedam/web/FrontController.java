@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedam.comm.Control;
+import com.yedam.common.Control;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet{
@@ -34,8 +34,13 @@ public class FrontController extends HttpServlet{
 		//멤버 추가 실제 처리
 		map.put("/memberAdd.do", new MemberAddControl());
 		
-		//게시글 리스트 만들기
-		map.put("/boardList.do", new boardListContrl());
+		//게시글 리스트보기
+		map.put("/boardList.do", new BoardListControl());
+		//게시글 상세보기
+		map.put("/board.do", new BoardControl());
+		
+	
+		
 	}
 	
 	@Override
