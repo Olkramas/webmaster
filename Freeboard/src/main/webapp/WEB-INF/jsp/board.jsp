@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<jsp:include page="../../includes/header.jsp"></jsp:include>
 <h3>상세페이지(board.jsp)</h3>
 <br>
 <%
@@ -60,7 +59,6 @@ String wdate = simpleDate.format(bvo.getWriteDate());
 
 
 
-<jsp:include page="../../includes/footer.jsp"></jsp:include>
 <script>
 	document.querySelector('input[value="수정"]')	.addEventListener('click', function(e) {
 		//input[value="수정"]가 클릭됐을 때

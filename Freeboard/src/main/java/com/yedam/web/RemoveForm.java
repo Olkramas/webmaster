@@ -34,7 +34,7 @@ public class RemoveForm implements Control {
 			req.setAttribute("page", page);
 			req.setAttribute("searchCondition", sc);
 			req.setAttribute("keyword", kw);
-			req.getRequestDispatcher("WEB-INF/jsp/removeForm.jsp").forward(req, resp);
+			req.getRequestDispatcher("board/removeForm.tiles").forward(req, resp);
 		} else if(req.getMethod().equals("POST")) {
 			System.out.println("Method: " + req.getMethod());
 			System.out.println("sc : "+ sc);
@@ -52,7 +52,7 @@ public class RemoveForm implements Control {
 
 			} else {
 				req.setAttribute("msg", "삭제할 게시글이 없습니다");
-				req.getRequestDispatcher("WEB-INF/jsp/modifyForm.jsp").forward(req, resp);
+				req.getRequestDispatcher("board/modifyForm.tiles").forward(req, resp);
 			}	
 		}
 		

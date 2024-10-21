@@ -1,7 +1,6 @@
 <%@page import="com.yedam.vo.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../../includes/header.jsp"></jsp:include>
 <h3>수정화면 (modifyForm.jsp)</h3>
 <%
 	String msg = (String) request.getAttribute("msg");
@@ -55,7 +54,6 @@
 
 
 
-<jsp:include page="../../includes/footer.jsp"></jsp:include>
 
 <script>
 	document.querySelector('input[value="취소"]').addEventListener('click',function(e) {

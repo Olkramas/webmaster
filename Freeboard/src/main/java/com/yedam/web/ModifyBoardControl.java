@@ -36,7 +36,7 @@ public class ModifyBoardControl implements Control {
 			req.setAttribute("page", page);
 			req.setAttribute("searchCondition", sc);
 			req.setAttribute("keyword", kw);
-			req.getRequestDispatcher("WEB-INF/jsp/modifyForm.jsp").forward(req, resp);
+			req.getRequestDispatcher("board/modifyForm.tiles").forward(req, resp);
 		} else if (req.getMethod().equals("POST")) {
 			//ModifyForm에서 서브밋을 누르면 여기로 파라미터 오게됨.
 			//post요청에서는 한글처리를 해줘야함
@@ -60,7 +60,7 @@ public class ModifyBoardControl implements Control {
 			} else {
 				req.setAttribute("boardvo", board);
 				req.setAttribute("msg", "수정할 게시글이 없습니다");
-				req.getRequestDispatcher("WEB-INF/jsp/modifyForm.jsp").forward(req, resp);
+				req.getRequestDispatcher("board/modifyForm.tiles").forward(req, resp);
 			}
 		}
 	}
