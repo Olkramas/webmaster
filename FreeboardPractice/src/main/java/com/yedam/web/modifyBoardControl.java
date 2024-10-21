@@ -13,7 +13,7 @@ public class modifyBoardControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
+		req.setCharacterEncoding("utf-8");
 	}
 
 }

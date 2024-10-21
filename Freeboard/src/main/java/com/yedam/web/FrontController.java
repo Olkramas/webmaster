@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
-///////////////////////////////////////jsp파일안에 자바코드 바꾸기
 
 
 //끝이 .do로 끝나면 이 클래스를 실행하겠다는 의미
-@WebServlet("*.do")
+//@WebServlet("*.do")
 public class FrontController extends HttpServlet {
 	//url경로(String)와 해당경로를 처리할 Control객체를 매핑하는 Map
 	Map<String, Control> map; 
@@ -62,6 +61,8 @@ public class FrontController extends HttpServlet {
 		map.put("/loginForm.do", new LoginForm());
 		//로그아웃
 		map.put("/logOutForm.do", new LogOutControl());
+		
+		map.put("/javascript.do", new JavaScriptCont());
 		
 	}
 	

@@ -29,7 +29,7 @@ public class MemberListControl implements Control{
 		try {
 			//getRequestDispatcher지정된 경로에 대한 객체를 생성함.
 			//forward는 그 객체를 통해 jsp파일에 유저의 요청과 응답을 전달할 수 있는 메소드
-			req.getRequestDispatcher("WEB-INF/jsp/memberList.jsp").forward(req, resp);
+			req.getRequestDispatcher("admin/memberList.tiles").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

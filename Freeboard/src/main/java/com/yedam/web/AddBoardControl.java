@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.yedam.common.Control;
 import com.yedam.service.BoardService;
 import com.yedam.service.BoardServiceImpl;
@@ -18,17 +20,32 @@ public class AddBoardControl implements Control {
 		//요청정보에 한글이 포함돼있으면 설정을해줘야함
 		req.setCharacterEncoding("utf-8");
 		
-		// 저장버튼 누르면 title, content, writer3개의 파라미터가 여기로 오게 됨.
-		// 그리고 그 파라미터를 가지고 insert를 해야됨(db에 넣기 위해서)
-		// db에 등록하고 그 결과를 목록으로 보여주기
-		String title = req.getParameter("title");
-		String content = req.getParameter("content");
-		String writer = req.getParameter("writer");
+		//서버상의 저장경로 선언
+		String savePath = req.getServletContext().getRealPath("images");
+		//최대크기 지정(5mb)
+		int maxSize = 1024 * 1024 * 5;
+		
+		//multipart요청에 대한 처리로 변경
+		MultipartRequest mr = new MultipartRequest(//생성자 매개값이 5개가 필요함
+				req //1.요청정보
+				,savePath	//2.저장경로
+				,maxSize	//3.파일 최대 크기 지정
+				,"utf-8"	//4. 파일이름에 대한 인코딩타입 지정
+				,new DefaultFileRenamePolicy()	  //5.리네임 정책.
+				);
+		//파일 업로드 하는 작업 완료
+		
+		//이제 기존 요청에서 가져오는것이 아닌. 멀티파트 요청에서 가져와야함
+		String title = mr.getParameter("title");
+		String content = mr.getParameter("content");
+		String writer = mr.getParameter("writer");
+		String img = mr.getFilesystemName("img");
 		
 		BoardVO board = new BoardVO();
 		board.setTitle(title);
 		board.setContent(content);
 		board.setWriter(writer);
+		board.setImg(img);
 		
 		BoardService svc = new BoardServiceImpl();
 		try {
