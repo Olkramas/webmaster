@@ -1,5 +1,35 @@
 console.log("basic.js")
 
+/*
+	<ul>
+		<li>Apple</li>
+		<li>Banana</li>
+		<!-- <li>cherry</li> -->
+	</ul>	
+	<table border="1">
+		<tbody>
+			<tr>
+				<th>이름</th><td>박길동</td>
+			</tr>
+			<!-- 
+			<tr>
+				<th>이름</th><td>홍길동</td>
+			</tr>
+			-->
+		</tbody>
+	</table>
+	<table id="table2" border="2">
+		<thead>
+			<tr>
+			<th>이름</th><th>나이</th>
+			</tr>
+		</thead>
+		<tbody>
+						
+		</tbody>
+		
+	</table>
+*/
 let name = "홍길동";
 let age = 20;
 
@@ -83,7 +113,8 @@ function makeList() {
 //makeList();
 
 function makeList2() {
-	document.querySelector("#show table:nth-of-type(2)").classList.add("table");
+	document.querySelector("#show table:nth-of-type(2)").className ="table";
+	//document.querySelector("#show table:nth-of-type(2)").classList.add("table");
 	for (let i of data) {
 
 		let tr2 = document.createElement("tr");

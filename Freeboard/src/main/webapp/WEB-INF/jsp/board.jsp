@@ -56,7 +56,17 @@ String wdate = simpleDate.format(bvo.getWriteDate());
 	</tr>
 </table>
 
-
+<!-- 댓글관련 -->
+<table id="replyList" class="table">
+	<thead>
+		<tr>
+			<th>댓글번호</th><th>내용</th><th>작성자</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
+</table>
 
 
 <script>
@@ -71,3 +81,6 @@ String wdate = simpleDate.format(bvo.getWriteDate());
 	location.href = 'removeForm.do?bno=${boardvo.boardNo}&title=${boardvo.title}&page=${page}&searchCondition=${searchCondition}&keyword=${keyword}';
 	});
 </script>
+
+<script src="js/replyService.js"></script>
+<script src="js/reply.js"></script>

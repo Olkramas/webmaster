@@ -12,6 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.control.JavaScriptCont;
+import com.yedam.control.board.AddBoardControl;
+import com.yedam.control.board.AddBoardForm;
+import com.yedam.control.board.BoardControl;
+import com.yedam.control.board.BoardListControl;
+import com.yedam.control.board.ModifyBoardControl;
+import com.yedam.control.member.AddMemberCont;
+import com.yedam.control.member.DelMemberCont;
+import com.yedam.control.member.LogOutControl;
+import com.yedam.control.member.LoginForm;
+import com.yedam.control.member.MemberAddControl;
+import com.yedam.control.member.MemberAddFormControl;
+import com.yedam.control.member.MemberJsonCont;
+import com.yedam.control.member.MemberListControl;
+import com.yedam.control.member.RemoveForm;
+import com.yedam.control.reply.ReplyListCont;
 
 
 //끝이 .do로 끝나면 이 클래스를 실행하겠다는 의미
@@ -64,6 +80,17 @@ public class FrontController extends HttpServlet {
 		
 		map.put("/javascript.do", new JavaScriptCont());
 		
+		//json관련 데이터
+		//회원리스트 출력
+		//20241022여기부터 복습
+		map.put("/memberJson.do", new MemberJsonCont());
+		//회원 추가
+		map.put("/addMemberJson.do", new AddMemberCont());
+		//회원 삭제
+		map.put("/removeMemberJson.do", new DelMemberCont());
+		
+		//댓글관련
+		map.put("/replyList.do", new ReplyListCont());
 	}
 	
 	@Override

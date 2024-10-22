@@ -1,19 +1,16 @@
 package com.yedam.test;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DataSource;
-import com.yedam.common.SearchDTO;
-import com.yedam.mapper.BoardMapper;
-import com.yedam.vo.BoardVO;
+import com.yedam.mapper.ReplyMapper;
+import com.yedam.vo.ReplyVO;
 
 public class Apptest {
 	//여기서 중간중간 테스트해볼 수 있음 쿼리를제대로 짰는지 확인가능
 	public static void main(String[] args) {
-		SqlSession sqlSession = DataSource.getInstance().openSession();
-		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		SqlSession sqlSession = DataSource.getInstance().openSession(true);
+		ReplyMapper mapper = sqlSession.getMapper(ReplyMapper.class);
 		
 		//insert 실험 필수값들만 넣었음.
 //		BoardVO bvo = new BoardVO();
@@ -58,15 +55,34 @@ public class Apptest {
 //			System.out.println(bvo.toString());
 //		}
 		
-		SearchDTO search = new SearchDTO();
-		search.setKeyword("user01");
-		search.setSearchCondition("W");
-		search.setPage(1);
+//		SearchDTO search = new SearchDTO();
+//		search.setKeyword("user01");
+//		search.setSearchCondition("W");
+//		search.setPage(1);
+//		
+//		List<BoardVO> list = mapper.listWithPage(search);
+//		for(BoardVO bvo : list) {
+//			System.out.println(bvo.toString());
+//		}
+//		ReplyVO reply = new ReplyVO();
+//		reply.setBoardNo(173);
+//		reply.setReply("댓글 작성확인");
+//		reply.setReplyer("user01");
 		
-		List<BoardVO> list = mapper.listWithPage(search);
-		for(BoardVO bvo : list) {
-			System.out.println(bvo.toString());
-		}
+//		if(mapper.insertReply(reply) == 1) {
+//			System.out.println("들어갔음");
+//		} else {
+//			System.out.println("안들어감");
+//		}
+//		mapper.deleteReply(173);
+//		List<ReplyVO> list = mapper.selectList(173);
+//		for(ReplyVO rvo : list) {
+//			System.out.println(rvo.toString());
+//		}
+		
+		ReplyVO rvo = new ReplyVO();
+		rvo = mapper.selectReply(3);
+		System.out.println(rvo);
 	}
 }
 

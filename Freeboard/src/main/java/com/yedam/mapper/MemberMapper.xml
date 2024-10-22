@@ -32,6 +32,7 @@
 	<delete id="deleteMember" parameterType="String">
 		delete from tbl_member
 		where  member_id = #{memberId}
+		and    responsibility != 'Admin'
 	</delete>
 	
 	<select id="selectMember" parameterType="String" resultType="member">
