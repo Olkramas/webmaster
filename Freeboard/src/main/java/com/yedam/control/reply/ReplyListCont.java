@@ -18,6 +18,7 @@ public class ReplyListCont implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		resp.setContentType("text/json;charset=utf-8");
 		//원본 게시글 번호가 필요함
 		String bno = req.getParameter("bno");
@@ -27,6 +28,7 @@ public class ReplyListCont implements Control {
 		
 		Gson gson = new GsonBuilder().create();
 		//자바객체를 json 문자열로 변경하는 메소드
+		//json 문자열로 응답을 보내줘야하기때문에 사용해야됨.
 		String json = gson.toJson(list);
 		
 		resp.getWriter().print(json);

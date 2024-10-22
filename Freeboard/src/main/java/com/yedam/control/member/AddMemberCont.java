@@ -30,10 +30,7 @@ public class AddMemberCont implements Control {
 			resp.getWriter().print("{\"retCode\": \"OK\"}");
 		} catch (Exception e) {
 			resp.getWriter().print("{\"retCode\": \"FAIL\"}");
-			
 		}
-		
-		
 		
 	}
 

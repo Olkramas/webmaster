@@ -88,7 +88,6 @@ public class FrontController extends HttpServlet {
 		map.put("/addMemberJson.do", new AddMemberCont());
 		//회원 삭제
 		map.put("/removeMemberJson.do", new DelMemberCont());
-		
 		//댓글관련
 		map.put("/replyList.do", new ReplyListCont());
 	}
