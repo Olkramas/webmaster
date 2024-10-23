@@ -27,6 +27,9 @@ import com.yedam.control.member.MemberAddFormControl;
 import com.yedam.control.member.MemberJsonCont;
 import com.yedam.control.member.MemberListControl;
 import com.yedam.control.member.RemoveForm;
+import com.yedam.control.reply.AddReplyCont;
+import com.yedam.control.reply.RemoveReplyCont;
+import com.yedam.control.reply.ReplyCountCont;
 import com.yedam.control.reply.ReplyListCont;
 
 
@@ -82,7 +85,6 @@ public class FrontController extends HttpServlet {
 		
 		//json관련 데이터
 		//회원리스트 출력
-		//20241022여기부터 복습
 		map.put("/memberJson.do", new MemberJsonCont());
 		//회원 추가
 		map.put("/addMemberJson.do", new AddMemberCont());
@@ -90,6 +92,13 @@ public class FrontController extends HttpServlet {
 		map.put("/removeMemberJson.do", new DelMemberCont());
 		//댓글관련
 		map.put("/replyList.do", new ReplyListCont());
+		//20241023
+		//댓글 삭제
+		map.put("/removeReply.do", new RemoveReplyCont());
+		//댓글 등록
+		map.put("/addReply.do", new AddReplyCont());
+		//댓글 총 건수 가져오는 컨트롤이 있어야 함.
+		map.put("/replyCount.do", new ReplyCountCont());
 	}
 	
 	@Override

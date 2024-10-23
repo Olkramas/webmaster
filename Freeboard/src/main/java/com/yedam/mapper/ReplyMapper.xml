@@ -11,24 +11,43 @@
 		       replyer
 		from   tbl_reply
 		where  board_no = #{boardNo}
+		order by reply_no desc
+	</select>
+	
+	<select id="selectListPaging">
+		select a.*
+		from (  select /*+ INDEX_DESC (r pk_reply)*/ rownum rn, r.*
+		        from   tbl_reply r
+		        where  board_no = #{bno}) a
+				where a.rn > (#{page} - 1) * 5
+		<![CDATA[
+		and   a.rn <= #{page} * 5
+		]]>
+		
 	</select>
 	
 	<update id="deleteReply" parameterType="int">
 		delete from tbl_reply
-		where  board_no=#{boardNo}
+		where  reply_No=#{replyNo}
 	</update>
 	
-	<update id="insertReply" parameterType="reply">
+	<insert id="insertReply" parameterType="reply">
+		<!-- 아래 인서트 구문을 실행하기 전 selectKey가 실행됨 order="BEFORE"
+		ReplyVO에 있는 replyNo필드-->
+		<selectKey keyProperty="replyNo" order="BEFORE" resultType="int">
+			<!-- 시퀀스의 다음번호를 가져옴 -->
+			select reply_seq.nextval from dual
+		</selectKey>
 		insert into tbl_reply(
 		       reply_no,
 		       reply,
 		       replyer,
 		       board_no)
-		values (reply_seq.nextval,
+		values (#{replyNo},
 				#{reply},
 				#{replyer},
 				#{boardNo})
-	</update>
+	</insert>
 	
 	<select id="selectReply" parameterType="int" resultType="reply">
 		select reply_no,
@@ -36,6 +55,12 @@
 		       replyer
 		from   tbl_reply
 		where  reply_no = #{replyNo}
+	</select>
+	
+	<select id="selectCount" parameterType="int">
+		select count(1)
+		from   tbl_reply
+		where board_no = #{boardNo}
 	</select>
 
 

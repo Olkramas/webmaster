@@ -5,6 +5,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<style>
+	.reply span {
+	  display: inline-block;
+	}
+	.reply ul {
+	  list-style-type: none;
+	}
+</style>
+
 <h3>상세페이지(board.jsp)</h3>
 <br>
 <%
@@ -15,6 +24,7 @@ String sc = (String) request.getAttribute("searchCondition");
 String kw = (String) request.getAttribute("keyword");
 SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 String wdate = simpleDate.format(bvo.getWriteDate());
+String logId = (String) session.getAttribute("logId");
 %>
 <p style="display: none;">${keyword = keyword == null ? "" : keyword }</p>
 
@@ -56,20 +66,55 @@ String wdate = simpleDate.format(bvo.getWriteDate());
 	</tr>
 </table>
 
-<!-- 댓글관련 -->
-<table id="replyList" class="table">
-	<thead>
-		<tr>
-			<th>댓글번호</th><th>내용</th><th>작성자</th>
-		</tr>
-	</thead>
-	<tbody>
+<div class="container reply">
+	<!-- 댓글 등록화면 -->
+	<div class="header">
+		댓글내용<input class ="col-sm-8" id="reply">
+		<button class="col-sm-3" id="addReply">댓글등록</button>
 		
-	</tbody>
-</table>
+	</div>
+	<!-- 댓글 목록보여주는 화면 -->
+	<div class="content">
+		<ul>
+			<li>
+				<span class="col-sm-2">댓글번호</span>
+				<span class="col-sm-5">내용</span>
+				<span class="col-sm-2">작성자</span>
+				<span class="col-sm-2">삭제</span>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 댓글이 많아지면 페이징을 만들어야 함 -->
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination">
+	    <li class="page-item">
+	      <a class="page-link" href="#" aria-label="Previous">
+	        <span aria-hidden="true">&laquo;</span>
+	      </a>
+	    </li>
+
+	    <li class="page-item"><a class="page-link" href="#">1</a></li>
+	    <li class="page-item"><a class="page-link" href="#">2</a></li>
+	    <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+	    <li class="page-item">
+	      <a class="page-link" href="#" aria-label="Next">
+	        <span aria-hidden="true">&raquo;</span>
+	      </a>
+	    </li>
+	  </ul>
+	</nav>
+</div>
+
 
 
 <script>
+	const bno = '${boardvo.boardNo}';
+	//세션에 저장된 로그인 아이디 가져오기
+	const logId = '${logId}';
+	console.log(logId);
+
 	document.querySelector('input[value="수정"]')	.addEventListener('click', function(e) {
 		//input[value="수정"]가 클릭됐을 때
 		console.log("click정상동작");

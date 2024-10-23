@@ -20,11 +20,12 @@ public class ReplyListCont implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		resp.setContentType("text/json;charset=utf-8");
-		//원본 게시글 번호가 필요함
+		//원본 게시글 번호가 필요함, 페이지 번호
 		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
 		
 		ReplyService svc = new ReplyServiceImpl();
-		List<ReplyVO> list = svc.replyList(Integer.parseInt(bno));
+		List<ReplyVO> list = svc.replyList(Integer.parseInt(bno), Integer.parseInt(page));
 		
 		Gson gson = new GsonBuilder().create();
 		//자바객체를 json 문자열로 변경하는 메소드
