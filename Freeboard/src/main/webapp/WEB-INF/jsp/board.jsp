@@ -76,6 +76,7 @@ String logId = (String) session.getAttribute("logId");
 	<!-- 댓글 목록보여주는 화면 -->
 	<div class="content">
 		<ul>
+			<!-- 클론을 만들 제일 첫번째 li -->
 			<li>
 				<span class="col-sm-2">댓글번호</span>
 				<span class="col-sm-5">내용</span>

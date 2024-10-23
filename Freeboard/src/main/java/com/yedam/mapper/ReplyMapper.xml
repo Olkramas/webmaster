@@ -19,7 +19,7 @@
 		from (  select /*+ INDEX_DESC (r pk_reply)*/ rownum rn, r.*
 		        from   tbl_reply r
 		        where  board_no = #{bno}) a
-				where a.rn > (#{page} - 1) * 5
+		where a.rn > (#{page} - 1) * 5
 		<![CDATA[
 		and   a.rn <= #{page} * 5
 		]]>

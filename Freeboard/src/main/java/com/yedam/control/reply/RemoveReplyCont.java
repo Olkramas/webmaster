@@ -14,14 +14,24 @@ public class RemoveReplyCont implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		resp.setContentType("text/json;charset=utf-8");
+//		String rno = req.getParameter("rno");
+//		
+//		ReplyService svc = new ReplyServiceImpl();
+//		if(svc.removeReply(Integer.parseInt(rno))) {
+//			resp.getWriter().print("{\"retCode\": \"OK\"}");
+//		} else {
+//			resp.getWriter().print("{\"retCode\": \"FAIL\"}");
+//		}
 		resp.setContentType("text/json;charset=utf-8");
 		String rno = req.getParameter("rno");
 		
 		ReplyService svc = new ReplyServiceImpl();
 		if(svc.removeReply(Integer.parseInt(rno))) {
-			resp.getWriter().print("{\"retCode\": \"OK\"}");
+			resp.getWriter().print("{\"retCode\":\"OK\"}");
 		} else {
-			resp.getWriter().print("{\"retCode\": \"FAIL\"}");
+			resp.getWriter().print("{\"retCode\":\"FAIL\"}");
+			
 		}
 	}
 

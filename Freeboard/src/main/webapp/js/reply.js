@@ -16,15 +16,10 @@
 
 //replyService에서 생성했던 메소드들을 호출해서 사용하려고 함.
 
-//svc.showMsg('hello');
 
-// 현재 페이지의 URL을 가져옴
-//let url = new URL(window.location.href);
-// URLSearchParams 객체를 생성
-//let params = new URLSearchParams(url.search);
-// 특정 파라미터 값 가져오기. "bno"
-//let bno = params.get('bno');
-let page = 1; //댓글에 대한 페이지 변수
+//댓글 페이지 변수의 기본값 1로 설정
+//페이지가 바뀌면서 linkMove 함수에서 page값을 재할당하게 됨.
+let page = 1;
 
 
 //댓글등록 버튼 이벤트
@@ -45,11 +40,9 @@ function addReplyHandlerFnc(e) {
 		result => {
 			if (result.retCode == "OK") {
 				alert("정상 처리");
+				//댓글 추가후 댓글리스트 다시 불러오기
 				showList();
-				// 새로 추가된 댓글을 바로 리스트에 반영
-				//let template = makeLi(result.retVal);  
-				// result.retVal은 새로 추가된 댓글 데이터 db에서 가져오고 그걸 컨트롤에서 제이슨 형식으로 넘겼음 result.retVal는 자바스크립트 객체
-				document.querySelector(".reply ul").appendChild(template);
+				
 			} else if (result.retCode == "FAIL") {
 				alert("처리 중 예외 발생");
 			} else {
@@ -63,76 +56,60 @@ function addReplyHandlerFnc(e) {
 
 }
 
+svc.getReplyCount(bno, createPageList, err => console.log(err));
+
 //pagination a 클릭 이벤트.
 //.forEach(innerText, index, nodelist)
 function linkMove() {
+	//nav ul.pagination 밑에 있는 모든 a 태그들을 노드리스트로 반환 받고 그 a태그 리스트들 각각에 클릭이벤트를 달았음.
 	document.querySelectorAll("nav ul.pagination a").forEach(function(aTag) {
 		aTag.addEventListener('click', function(e) {
-			e.preventDefault();//a태그의 이동 차단
 			console.log(aTag.innerHTML);
+			//a태그는 원래 누르면 다른 페이지로 이동하지만, 이 코드를 통해 이동하지 않고 현재 페이지에서만 동작하도록 만들었음
+			e.preventDefault();
 			page = aTag.dataset.page;	//a태그의 data-page="n" 이것의 n값을 가져옴
 			showList();	//목록 보여주기
-			svc.getReplyCount(bno, createPageList, err => console.log(err));	//페이지 목록도 보여주기
+			
+			//페이지가 바뀔때마다 페이지 정보를 업데이트해야함 그래야 이전, 다음페이지 이동이 작동될 수 있음
+			svc.getReplyCount(bno, createPageList, err => console.log(err));
 		})
 	})
 }
 
-svc.getReplyCount(bno, createPageList, err => console.log(err));
+
 //페이지 목록을 출력하는 함수
-function createPageList(result) {	//ex) totalCnt가 20일때, 현재 2page
-	//console.log(result.totalCount);
+function createPageList(result) {	//ex) totalCnt가 38일때, 현재 1page
+	//db에서 가져온 해당 게시물의 댓글의 총개수를 가져왔음. {"totalCount":"n"}
 	let totalCnt = result.totalCount;
 	let startPage, endPage, realEnd;
 	let prev, next;
 	
 	endPage = Math.ceil (page / 5) * 5;	//5page
 	startPage = endPage - 4; //1page
-	realEnd = Math.ceil(totalCnt / 5); //13page
+	realEnd = Math.ceil(totalCnt / 5); //8page
 	endPage = endPage > realEnd ? realEnd : endPage;
 	
 	prev = startPage > 1;	//false
 	next = endPage < realEnd;	//ture
 	
 	let list ="";
-	/*
-	<li class="page-item">
-	      <a class="page-link" href="#" aria-label="Previous">
-	        <span aria-hidden="true">&laquo;</span>
-	      </a>
-	    </li>
-	*/
 	
 	//이전 페이지 이동
 	list += '<li class="page-item">';
-	if(prev)
+	if(prev)	//이전이 true면 a태그로 이동가능 아니면 span태그로 이동 불가
 		list += '  <a class="page-link" href="#" aria-label="Previous" data-page="' + (startPage - 1) + '">&laquo;</a>';
 	else
 		list += '  <span class="page-link" aria-hidden="true">&laquo;</span>';
 	list += '    </li>'; 
 	
-	//<li class="page-item"><a class="page-link" href="#">1</a></li>
+	//페이징	
 	for(let p = startPage; p<=endPage; p++) {
-		/*
-		let li = document.createElement('li');
-		li.className = 'page-item';
-		let a = document.createElement('a');
-		a.className = 'page-link';
-		a.setAttribute('href', '#');
-		a.innerText = p;
-		li.appendChild(a);
-		*/
+																	//data-page 설정 linkmove함수에서 불러오게 됨.
 		list += '<li class="page-item"><a class="page-link" href="#" data-page="' + p + '">' + p + '</a></li>';
 		
 	}
 	
-	/*
-	<li class="page-item">
-	      <a class="page-link" href="#" aria-label="Next">
-	        <span aria-hidden="true">&raquo;</span>
-	      </a>
-	    </li>
-	*/
-	//다음 페이지 이동
+	//다음페이지 이동
 	list += '<li class="page-item">';
 	if(next)
 		list += '  <a class="page-link" href="#" aria-label="Next" data-page="' + (endPage + 1) + '">&raquo;</a>';
@@ -142,7 +119,7 @@ function createPageList(result) {	//ex) totalCnt가 20일때, 현재 2page
 	//document.querySelector('nav ul.pagination').appendChild(li);
 	document.querySelector('nav ul.pagination').innerHTML = list;
 	
-	//a태그 링크 달기
+	//댓글 페이징
 	linkMove();	
 }
 
@@ -150,92 +127,64 @@ function createPageList(result) {	//ex) totalCnt가 20일때, 현재 2page
 
 //댓글 목록을 만드는 함수
 showList();
+//댓글 리스트 가져오기
 function showList() {
-	//출력목록을 화면에서 지우고, 다시 출력해야 중복되게 안나옴
-	document.querySelectorAll('div.reply div.content ul li').forEach((li, idx) => {
-		//li 는 'div.reply div.content ul li'에서 선택된 모든 li요소
-		//인덱스는 위에서 가져온 li태그들의 인덱스 번호
-		if(idx > 0) 
-		//첫번째 li요소의 인덱스 번호가 0이라서 그 외 모든 요소들은 삭제됨.
-			li.remove();
-		
+	//.content ul li li들을 모두 가져옴. 그런데 .forEach함수로 반복문 실행. 
+	//li가 li태그 idx가 li태그들의 인덱스 번호임.
+	//제일 첫번째 외에는 모두 제거됨.remove()를 통해
+	//가이드(댓글번호, 내용, 작성자, 삭제)이거 외에 모두 삭제됨.
+	document.querySelectorAll('.content ul li').forEach((li, idx) => {
+		if(idx > 0) li.remove();
 	})
-	
-	// 댓글 목록 출력
-	svc.rlist({ bno, page }	//bno 파라미터
-		,	//successFnc
-		function(result) {
-			console.log(result);
-			for (let i = 0; i < result.length; i++) {
+	//삭제된 다음 리스트를 가져옴
+	//makeLi 함수 안에서 데이터들을 li태그안에 담아서 리턴했음.
+	svc.rlist({bno, page},
+		result => {
+			for(let i=0; i<result.length; i++) {
 				let template = makeLi(result[i]);
-				document.querySelector(".reply ul").appendChild(template);
+				document.querySelector('.content ul').appendChild(template);
 			}
-		}
-		, function(err) {
-			console.log(err);
-
-		}	//errorFunc
-	)
-}	//end of showList()
-
-//댓글 삭제하는 함수
-function delRow(e) {
-	let rno = e.target.parentElement.parentElement.dataset.id;
-	//let rno2 = e.target.parentElement.parentElement.firstElementChild.innerText;
-	console.log(rno);
-
-	//삭제기능 호출(replyService.js)
-
-	svc.removeReply(rno,//삭제할 댓글번호
-		(result) => {	
-			if (result.retCode == "OK") {
-				alert("정상 처리");
-				//tr을 삭제함
-				svc.getReplyCount(bno, createPageList, err => console.log(err));
-				showList();
-				e.target.parentElement.parentElement.remove();
-			} else if (result.retCode == "FAIL") {
-				alert("처리중 예외");
-			} else {
-				alert('알수 없는 코드');
-			}
-		}
-		, (err) => {	//정상처리 실행함수
-			console.log(err);
-		}
-	)
-
-
+		}, err=> console.log(err))
 }
 
-//댓글 목록 만들기
-function makeList(result) {
-	let fields = ['replyNo', 'reply', 'replyer']
-	console.log(result);	//배열
-	for (let i = 0; i < result.length; i++) {
-		let tr = document.createElement("tr");
-		for (let j = 0; j < fields.length; j++) {
-			let td = document.createElement("td");
-			td.innerHTML = result[i][fields[j]];
-			tr.appendChild(td);
-		}
-		document.querySelector("#replyList tbody").appendChild(tr);
-	}
-}
-
-//댓글 정보가 한건 있으면 <li>...</li>만드는 함수 생성
-function makeLi({ replyNo, reply, replyer }) {
-	//reply ul li를 클론으로 만들겠다는 의미					//closeNode(매개값) 매개값을 ture로 하면 하위요소의 값을 모두 가져오게 됨.
-	let template = document.querySelector(".reply ul li").cloneNode(true);
-	template.setAttribute('data-id', replyNo)
-	//.reply ul li의 첫번째 span태그의 값을 30으로 설정
+//댓글 템플릿 만들기
+//db에서 가져온 결과를 받아서 span안에 넣고 그걸 li안에 넣어서 template리턴
+function makeLi({replyNo, reply, replyer}) {
+	//.content ul li태그를 복사하고 그 하위 span태그도 같이 복사됨.
+	let template = document.querySelector('.content ul li').cloneNode(true);
+	
+	//li태그 하위요소인 span에 값을 설정해주는 모습
 	template.querySelector('span').innerText = replyNo;
 	template.querySelector('span:nth-of-type(2)').innerText = reply;
 	template.querySelector('span:nth-of-type(3)').innerText = replyer;
-	let delBtn = template.querySelector('span:nth-of-type(4)');
-	delBtn.innerHTML = '<button>삭제</button>';//innerHTML 은 html로 적용이 됨.
+	let delBtn = template.querySelector('span:nth-of-type(4)'); 
+	delBtn.innerHTML = '<button>삭제</button>';
+	//삭제버튼에 온클릭 이벤트 설정
 	delBtn.addEventListener('click', delRow);
-
-
+	
 	return template;
 }
+
+//댓글 삭제 함수
+function delRow(e) {
+	//li의 첫번째 span의 텍스트를 가져옴 = rno
+	let rno = e.target.parentElement.parentElement.firstElementChild.innerText;
+	
+	svc.removeReply(rno, 
+		result => {
+			if(result.retCode == "OK") {
+				alert('삭제 완료');
+				//삭제 후 댓글 리스트 출력
+				showList();
+				//삭제 후 페이징 출력
+				svc.getReplyCount(bno, createPageList, err => console.log(err));
+			} else if(result.retCode == "FAIL") {
+				alert('처리중 예외');
+			} else {
+				alert('알수없는 코드')
+			}
+		},
+		err => console.log(err))
+}
+
+
