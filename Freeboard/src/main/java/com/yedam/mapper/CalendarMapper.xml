@@ -11,5 +11,18 @@
   	       end_date as "end"
   	from   tbl_event
   </select>
-
+  
+  <insert id="insertEvent" parameterType="calendar">
+  	insert into tbl_event(
+  			title,
+  			start_date,
+  			end_date)
+  	values (#{title},
+  			#{start_date},
+  			#{end_date})
+  </insert>
+  <update id="deleteEvent" parameterType="String">
+  	delete from tbl_event
+  	where  title = #{title}
+  </update>
 </mapper>

@@ -1,12 +1,8 @@
 package com.yedam.test;
 
-import java.util.List;
-import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.yedam.service.CalendarService;
 import com.yedam.service.CalendarServiceImpl;
+import com.yedam.vo.CalendarVO;
 
 public class Apptest {
 	//여기서 중간중간 테스트해볼 수 있음 쿼리를제대로 짰는지 확인가능
@@ -15,13 +11,18 @@ public class Apptest {
 		//BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 		
 		CalendarService svc = new CalendarServiceImpl();
-		List<Map<String, Object>> result = svc.event();
+		//List<Map<String, Object>> result = svc.event();
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		//제이슨 문자열로 만들기
-		String json = gson.toJson(result);
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		//제이슨 문자열로 만들기
+//		String json = gson.toJson(result);
+//		
+//		System.out.println(json);
 		
-		System.out.println(json);
+//		CalendarVO cal = new CalendarVO();
+//		cal.setTitle("테스트");
+//		cal.setStart_date("2024-10-10");
+//		System.out.println(svc.addEvent(cal));
 		
 		//insert 실험 필수값들만 넣었음.
 //		BoardVO bvo = new BoardVO();

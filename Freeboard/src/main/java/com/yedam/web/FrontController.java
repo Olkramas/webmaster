@@ -17,6 +17,8 @@ import com.yedam.control.ChartControl;
 import com.yedam.control.CountWriterCont;
 import com.yedam.control.EventListCont;
 import com.yedam.control.JavaScriptCont;
+import com.yedam.control.addEventCont;
+import com.yedam.control.removeEventCont;
 import com.yedam.control.board.AddBoardControl;
 import com.yedam.control.board.AddBoardForm;
 import com.yedam.control.board.BoardControl;
@@ -114,8 +116,12 @@ public class FrontController extends HttpServlet {
 		//캘린더
 		//캘린더 연결 페이지
 		map.put("/calendar.do", new CalendarCont());
-		
+		//이벤트 db에서 가져오기
 		map.put("/getEvent.do", new EventListCont());
+		//캘린더 일정추가
+		map.put("/addEvent.do", new addEventCont());
+		//캘린더 일정제거
+		map.put("/removeEvent.do", new removeEventCont());
 	}
 	
 	@Override

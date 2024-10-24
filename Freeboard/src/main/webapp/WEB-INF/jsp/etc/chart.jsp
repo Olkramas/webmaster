@@ -13,10 +13,13 @@
       	.then(result => {
       		console.log(result);
       		result.forEach(row => {
+      			//chartData 배열에 제이슨 문자열 각 하나를 선택(row) 그리고 그 row에 대해서
+      			//member_name, count를 가져와서 추가하게 됨.
       			chartData.push([row.member_name, row.count]);
       		});
       		console.log(chartData);
       		google.charts.load('current', {'packages':['corechart']});
+      		
             //함수를 콜백함수로 받아서 사용중
             google.charts.setOnLoadCallback(drawChart);
       	})

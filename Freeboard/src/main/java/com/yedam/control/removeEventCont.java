@@ -1,7 +1,7 @@
 package com.yedam.control;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,19 +14,23 @@ import com.yedam.common.Control;
 import com.yedam.service.CalendarService;
 import com.yedam.service.CalendarServiceImpl;
 
-public class EventListCont implements Control {
+public class removeEventCont implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/json;charset=utf-8");
 		CalendarService svc = new CalendarServiceImpl();
-		List<Map<String, Object>> result = svc.event();
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		//제이슨 문자열로 만들기
-		String json = gson.toJson(result);
+		String title = req.getParameter("title");
 		
-		resp.getWriter().print(json);
+		Map<String, String> result = new HashMap<>();
+		
+		if(svc.removeEvent(title)) {
+			result.put("retCode", "OK");
+		} else {
+			result.put("retCode", "FAIL");			
+		}
+		Gson gson = new GsonBuilder().create();
+		resp.getWriter().print(gson.toJson(result));
 	}
 
 }
