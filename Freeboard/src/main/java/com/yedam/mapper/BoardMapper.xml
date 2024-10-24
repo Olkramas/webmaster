@@ -127,6 +127,7 @@
 	</select>
 										<!-- map 또는 hashmap으로 적으면 됨. -->
 	<select id="countByWriter" resultType="hashmap">
+	<!-- 컬럼명이 키, 쿼리 결과가 값으로 반환됨 ex) {"writer":"000", "member_name":"000", "count":0 -->
 		select writer as "writer", 
 		       member_name as "member_name", 
 	           count(1) as "count"

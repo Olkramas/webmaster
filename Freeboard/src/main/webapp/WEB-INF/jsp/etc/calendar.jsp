@@ -19,11 +19,11 @@
     //Ajax호출
     //new Promise(function() {}. function() {})
   //Primise객체가 반환될 때 await 수행코드 --> 그 후에 다음 코드 실행(동기 방식으로 바꿔줌) async 함수 안에 있어야 함
-    let resolve = await fetch("getEvent.do")
-  	let result = await resolve.json() //.then(resolve => resolve.json())
-  	eventData = result 				  //.then(result => {
-  									  //console.log(result);
-  									  //eventData = result;
+    let resolve = await fetch("getEvent.do")	//await의 덕분에 모든 데이터를 가져오고 동기적 방식으로 처리가 가능함
+  	let result = await resolve.json() 
+  	//함수내 로컬변수로 선언한 배열에 모든 일정에 대한 결과를 받았음
+  	//hashMap으로 리턴된 결과물을 제이슨 문자열로 변환 시켜서 키:값의 형태로 들어가있음.{"000":"000"} 이런식
+  	eventData = result 				  
   		
   		var calendar = new FullCalendar.Calendar(calendarEl, {
   	      headerToolbar: {

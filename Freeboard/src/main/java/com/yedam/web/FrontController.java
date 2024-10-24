@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.control.Chart3DCont;
 import com.yedam.control.CalendarCont;
 import com.yedam.control.ChartControl;
 import com.yedam.control.CountWriterCont;
@@ -110,6 +111,8 @@ public class FrontController extends HttpServlet {
 		//차트
 		//차트 보이는 페이지
 		map.put("/chart.do", new ChartControl());
+		//3d차트 보이는 페이지 연결
+		map.put("/chart3D.do", new Chart3DCont());
 		//차트에 넣을 데이터를 가져옴
 		map.put("/countByWriter.do", new CountWriterCont());
 		
