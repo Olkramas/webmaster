@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.control.CalendarCont;
+import com.yedam.control.ChartControl;
+import com.yedam.control.CountWriterCont;
+import com.yedam.control.EventListCont;
 import com.yedam.control.JavaScriptCont;
 import com.yedam.control.board.AddBoardControl;
 import com.yedam.control.board.AddBoardForm;
@@ -94,13 +98,24 @@ public class FrontController extends HttpServlet {
 		//댓글관련
 		//댓글 리스트
 		map.put("/replyList.do", new ReplyListCont());
-		//20241023
 		//댓글 삭제
 		map.put("/removeReply.do", new RemoveReplyCont());
 		//댓글 등록
 		map.put("/addReply.do", new AddReplyCont());
 		//댓글 총 건수 가져오는 컨트롤이 있어야 함.
 		map.put("/replyCount.do", new ReplyCountCont());
+		
+		//차트
+		//차트 보이는 페이지
+		map.put("/chart.do", new ChartControl());
+		//차트에 넣을 데이터를 가져옴
+		map.put("/countByWriter.do", new CountWriterCont());
+		
+		//캘린더
+		//캘린더 연결 페이지
+		map.put("/calendar.do", new CalendarCont());
+		
+		map.put("/getEvent.do", new EventListCont());
 	}
 	
 	@Override

@@ -26,4 +26,6 @@ public interface ReplyMapper {
 	//댓글 건수 가져오기
 	int selectCount(int boardNo);
 	
+	
+	
 }

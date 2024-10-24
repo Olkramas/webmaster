@@ -1,16 +1,27 @@
 package com.yedam.test;
 
-import org.apache.ibatis.session.SqlSession;
+import java.util.List;
+import java.util.Map;
 
-import com.yedam.common.DataSource;
-import com.yedam.mapper.ReplyMapper;
-import com.yedam.vo.ReplyVO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.yedam.service.CalendarService;
+import com.yedam.service.CalendarServiceImpl;
 
 public class Apptest {
 	//여기서 중간중간 테스트해볼 수 있음 쿼리를제대로 짰는지 확인가능
 	public static void main(String[] args) {
-		SqlSession sqlSession = DataSource.getInstance().openSession(true);
-		ReplyMapper mapper = sqlSession.getMapper(ReplyMapper.class);
+		//SqlSession sqlSession = DataSource.getInstance().openSession(true);
+		//BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		
+		CalendarService svc = new CalendarServiceImpl();
+		List<Map<String, Object>> result = svc.event();
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		//제이슨 문자열로 만들기
+		String json = gson.toJson(result);
+		
+		System.out.println(json);
 		
 		//insert 실험 필수값들만 넣었음.
 //		BoardVO bvo = new BoardVO();
@@ -80,9 +91,9 @@ public class Apptest {
 //			System.out.println(rvo.toString());
 //		}
 		
-		ReplyVO rvo = new ReplyVO();
-		rvo = mapper.selectReply(3);
-		System.out.println(rvo);
+//		ReplyVO rvo = new ReplyVO();
+//		rvo = mapper.selectReply(3);
+//		System.out.println(rvo);
 	}
 }
 

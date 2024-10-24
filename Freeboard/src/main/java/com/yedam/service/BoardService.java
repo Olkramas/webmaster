@@ -1,6 +1,7 @@
 package com.yedam.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yedam.common.SearchDTO;
 import com.yedam.vo.BoardVO;
@@ -26,4 +27,6 @@ public interface BoardService {
 	//페이징 카운트
 	int getTotalCount(SearchDTO search);
 	
+	//사용자별 게시글 개수 카운트
+	List<Map<String, Object>> countByWriter();
 }
