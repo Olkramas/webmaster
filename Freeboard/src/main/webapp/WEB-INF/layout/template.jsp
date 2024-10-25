@@ -39,6 +39,8 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="chart.do">차트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="chart3D.do">3D차트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendar.do">캘린더</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="exe1.do">exe1</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="exe2.do">exe2</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
