@@ -2,6 +2,8 @@
 	jreply.js
 */
 console.log('start');
+var rno = "";
+
 
 //jquery방식의 Ajax호출
 $.ajax('replyList.do?bno=' + bno + '&page=1')
@@ -21,6 +23,7 @@ $.ajax('replyList.do?bno=' + bno + '&page=1')
 .fail(function(err) {
 	console.log(err);	
 })
+
 	//클릭 이벤트가 생기면 ul하위의 button을 가져와서 처리가능
 $('div.content ul').on('click', 'button', function(e) {
 	console.log($(e.target).parent().parent().find('span:eq(0)').text());
@@ -45,21 +48,35 @@ $('div.content ul').on('click', 'button', function(e) {
 })
 
 $('#addReply').on('click', function(e) {
-	//console.log('작동OK'); 작동 확인
-	console.log($('.table tr:eq(0) td:eq(0)').text());
+	let reply = $('#reply').val()
+
 	
 	$.ajax({
 		url: 'addReply.do',
-		data: {bno: $('.table tr:eq(0) td:eq(0)').text(),
-			   reply: $('.reply').val(),
+		data: {bno: bno,
+			   reply: reply,
 		       replyer: logId},
 		method: 'post',
 		dataType: 'json'
 	})
 	.done(function(result) {
-		
+		if(result.retCode == 'OK') {
+			$('<li/>')
+				.append($('<span/>').addClass('col-sm-2').text(result.retVal.replyNo))
+				.append($('<span/>').addClass('col-sm-5').text(result.retVal.reply))
+				.append($('<span/>').addClass('col-sm-2').text(result.retVal.replyer))
+				.append($('<span/>').addClass('col-sm-2').append($('<button>삭제</button>'))
+				).insertAfter($('div.content ul li:eq(0)'));
+		}
 	})
 	.fail(function(err) {
 		console.log(err);
 	})
 })
+
+
+
+
+
+
+

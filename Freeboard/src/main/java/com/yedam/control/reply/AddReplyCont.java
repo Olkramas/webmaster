@@ -42,8 +42,6 @@ public class AddReplyCont implements Control {
 		//Object ok, rvo가 같이 들어가야하기때문에 
 		Map<String, Object> result = new HashMap<>();
 		
-		
-		
 		try {
 			//reCode:OK, retVal: rvo
 			svc.addReply(rvo);

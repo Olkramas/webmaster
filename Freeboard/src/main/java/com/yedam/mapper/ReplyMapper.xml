@@ -33,7 +33,7 @@
 	
 	<insert id="insertReply" parameterType="reply">
 		<!-- 아래 인서트 구문을 실행하기 전 selectKey가 실행됨 order="BEFORE"
-		ReplyVO에 있는 replyNo필드-->
+		ReplyVO에 있는 replyNo필드에 selectKey구문의 결과를 저장함.-->
 		<selectKey keyProperty="replyNo" order="BEFORE" resultType="int">
 			<!-- 시퀀스의 다음번호를 가져옴 -->
 			select reply_seq.nextval from dual
