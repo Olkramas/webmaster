@@ -48,20 +48,6 @@
         
       }
       target.appendChild(tr);
-      
-      /*
-      //모든 날짜가 들어간 후의 노드리스트 반환
-      let dayOfCalendar = document.querySelectorAll("#list td");
-      
-      console.log(dayOfCalendar);
-      for(let i = 1; i <= dayOfCalendar.length; i++) {
-    	  
-    	  
-    	  if (i%7 == 0) {
-    		  dayOfCalendar[i].style.color = "red";
-    	  }
-      }
-      */
     }
   </script>
 </head>

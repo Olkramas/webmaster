@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+  //value = val()이라는 jquery함수가 있음 인풋태그의 값을 가져옴
+    $(function () {
+    	$('#addBtn').on('click', function () {
+    		/*
+    		let newRow = '<tr>';
+    		for(let i=0; i<3; i++) {
+				newRow += "<td>" + ($('.header input:eq('+ i +')').val()) + "</td>";
+    		}
+    		newRow += '</tr>';
+    		$('.content tbody').append(newRow); 
+    		*/
+    		let newRow = $('<tr/>');
+    		
+    		for(let i=0; i<3; i++) {
+    			newRow.append($('<td/>')
+    					.append($('.header input:eq('+ i +')').val()));
+    		}
+    		newRow.appendTo($('.content tbody'));
+    	})
+    })
+</script>
+</head>
+
+<body>
+  <div class="header">
+    <table border="2">
+      <tr>
+        <th>아이디</th>
+        <td><input type="text" id="mid"></td>
+      </tr>
+      
+      <tr>
+        <th>이름</th>
+        <td><input type="text"></td>
+      </tr>
+      
+      <tr>
+        <th>점수</th>
+        <td><input type="number"></td>
+      </tr>
+      
+      <tr>
+        <td align="center" colspan="2">
+          <button id="addBtn">추가</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="content">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>아이디</th>
+          <th>이름</th>
+          <th>점수</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+</body>
+
+
+</html>

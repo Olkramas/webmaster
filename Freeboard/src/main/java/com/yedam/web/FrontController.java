@@ -131,6 +131,7 @@ public class FrontController extends HttpServlet {
 		//연습
 		map.put("/exe1.do", new Exe1Cont());
 		map.put("/exe2.do", new Exe2Cont());
+	
 	}
 	
 	@Override
