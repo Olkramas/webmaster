@@ -69,6 +69,7 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
+                
                     <tiles:insertAttribute name="body"></tiles:insertAttribute>
                 </div>
             </div>
